@@ -3,6 +3,7 @@ package com.fiap.microservices.netflix.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,11 +21,12 @@ public class NetflixController implements Serializable {
 	 */
 	private static final long serialVersionUID = -1499412735506460046L;
 
+	@Autowired
 	private MoviesDetailsService service;
 	
-	@RequestMapping(value="/{genero}", method = RequestMethod.GET)
-	public List<Movie> getMoviesByGenero (@PathVariable("genero") String genero) {
+	@RequestMapping(value="/{type}", method = RequestMethod.GET)
+	public List<Movie> getMoviesByType (@PathVariable("type") String type) {
 		
-		return service.getMoviesByGenero(genero);
+		return service.getMoviesByType(type);
 	}
 }
