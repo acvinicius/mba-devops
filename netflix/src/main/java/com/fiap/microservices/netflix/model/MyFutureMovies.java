@@ -2,7 +2,6 @@ package com.fiap.microservices.netflix.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -13,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "myMovies")
-public class MyMovies implements Serializable{
+@Table(name = "myFutureMovies")
+public class MyFutureMovies implements Serializable{
 
 	/**
 	 * 
@@ -23,8 +22,6 @@ public class MyMovies implements Serializable{
 
 	@ManyToMany
 	private Movie movie;
-	@Column(name = "liked", nullable = true)
-	private boolean liked;
 	@ManyToMany
 	private User user;
 	
