@@ -21,8 +21,8 @@ public class ConfigDataSource implements Serializable{
 	    DriverManagerDataSource dataSource = new DriverManagerDataSource();
 	    dataSource.setDriverClassName("org.postgresql.Driver");
 	    dataSource.setUrl("jdbc:postgresql:netflixdb");
-	    dataSource.setUsername( "netflixdbuser" );
-	    dataSource.setPassword( "123456789" );
+	    dataSource.setUsername( "postgres" );
+	    dataSource.setPassword( "100201" );
 	    return dataSource;
 	}
 }
