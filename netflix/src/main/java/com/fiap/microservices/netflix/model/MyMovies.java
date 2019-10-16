@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -21,11 +23,15 @@ public class MyMovies implements Serializable{
 	 */
 	private static final long serialVersionUID = -5072500446137394457L;
 
-	@ManyToMany
-	private Movie movie;
+	@Id
+	@GeneratedValue( strategy=GenerationType.AUTO )
+	@Column(name = "mymovies_id", nullable = false, unique = true)
+	private Long id;
+	@Column(name = "movies_id", nullable = false, unique = true)
+	private Long movieId;
 	@Column(name = "liked", nullable = true)
 	private boolean liked;
-	@ManyToMany
-	private User user;
+	@Column(name = "user_id", nullable = false, unique = true)
+	private Long userId;
 	
 }

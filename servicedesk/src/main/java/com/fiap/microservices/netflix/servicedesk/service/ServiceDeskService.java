@@ -3,10 +3,12 @@ package com.fiap.microservices.netflix.servicedesk.service;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fiap.microservices.netflix.servicedesk.model.OrderDTO;
 import com.fiap.microservices.netflix.servicedesk.repository.ServiceDeskRepository;
 
+@Service
 public class ServiceDeskService implements Serializable {
 
 	/**
