@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fiap.microservices.netflix.servicedesk.enums.Status;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +34,8 @@ public class OrderDTO implements Serializable {
 	@Column(name = "message", nullable = false)
 	private String message;
 	@Column(name = "movie_id", nullable = true)
-	private Long movieId;
+	private Long movieId;	
+	@Column(name = "status", nullable = true)
+	private Status status;
 	
 }

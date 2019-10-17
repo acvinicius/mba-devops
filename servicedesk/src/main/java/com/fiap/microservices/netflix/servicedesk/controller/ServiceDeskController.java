@@ -3,6 +3,7 @@ package com.fiap.microservices.netflix.servicedesk.controller;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class ServiceDeskController implements Serializable {
 	private ServiceDeskService service;
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.POST)
-	public Long getMoviesByType (OrderDTO orderDTO) {
+	public Long createOrder(@RequestBody OrderDTO orderDTO) {
 		return service.createOrder(orderDTO);
 	}
 }
