@@ -23,5 +23,9 @@ public class ServiceDeskService implements Serializable {
 		orderDTO = this.repository.save(orderDTO);
 		return orderDTO.getId();
 	}
+	
+	public void delete(Long id) {
+		this.repository.deleteById(id);
+	}
 
 }

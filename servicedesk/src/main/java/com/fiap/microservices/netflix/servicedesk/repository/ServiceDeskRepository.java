@@ -14,4 +14,6 @@ public interface ServiceDeskRepository extends CrudRepository<OrderDTO, Long> {
 	
 	Optional<OrderDTO> findById(Long id);
 	
+	void deleteById(Long id) ;
+	
 }
