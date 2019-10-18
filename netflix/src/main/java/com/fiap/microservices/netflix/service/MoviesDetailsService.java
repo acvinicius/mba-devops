@@ -24,4 +24,23 @@ public class MoviesDetailsService implements Serializable {
 		return this.repository.getMoviesByType(type);
 	}
 
+	public List<Movie> getMyLikedMovies() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object setMovieAsLiked() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Movie> getMoviesMostViwedByType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object save(Movie movie) {
+		return this.repository.save(movie);
+	}
+
 }

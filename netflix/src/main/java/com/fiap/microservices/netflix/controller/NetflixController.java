@@ -24,9 +24,43 @@ public class NetflixController implements Serializable {
 	@Autowired
 	private MoviesDetailsService service;
 	
-	@RequestMapping(value="/{type}", method = RequestMethod.GET)
+	@RequestMapping(value="/movies/type", method = RequestMethod.GET)
 	public List<Movie> getMoviesByType (@PathVariable("type") String type) {
-		
-		return service.getMoviesByType(type);
+		return this.service.getMoviesByType(type);
+	}
+	
+	@RequestMapping(value="/movies", method = RequestMethod.PUT)
+	public Object save (@PathVariable("movie") Movie movie) {
+		return this.service.save(movie);
+	}
+	
+	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
+	public List<Movie> getMyLikedMovies () {
+		return this.service.getMyLikedMovies();
+	}
+	
+	@RequestMapping(value="/movies/watched", method = RequestMethod.GET)
+	public List<Movie> getMyWatchedMovies () {
+		return this.service.getMyLikedMovies();
+	}
+
+	@RequestMapping(value="/movies/future", method = RequestMethod.GET)
+	public List<Movie> getMyFutureWatchedMovies () {
+		return this.service.getMyLikedMovies();
+	}
+	
+	@RequestMapping(value="/movies/liked", method = RequestMethod.PATCH)
+	public void setMovieAsLiked () {
+		this.service.setMovieAsLiked();
+	}
+	
+	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
+	public List<Movie> getMoviesMostViwedByType () {
+		return this.service.getMoviesMostViwedByType();
+	}
+	
+	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
+	public List<Movie> getMovieById () {
+		return this.service.getMoviesMostViwedByType();
 	}
 }

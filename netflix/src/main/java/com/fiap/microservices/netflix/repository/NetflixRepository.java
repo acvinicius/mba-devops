@@ -13,5 +13,7 @@ public interface NetflixRepository extends CrudRepository<Movie, String> {
 
 	public List<Movie> getMoviesByType(String type);
 
+	<S> S save(Movie movie);
+	
 	
 }
