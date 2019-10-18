@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.microservices.netflix.servicedesk.model.OrderDTO;
 import com.fiap.microservices.netflix.servicedesk.service.ServiceDeskService;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
@@ -25,18 +24,20 @@ public class ServiceDeskController implements Serializable {
 	@Autowired
 	private ServiceDeskService service;
 	
-	@HystrixCommand (fallbackMethod = "fallback")
 	@RequestMapping(value="/servicedesk", method = RequestMethod.POST)
 	public Long createOrder(@RequestBody OrderDTO orderDTO) {
-		return service.createOrder(orderDTO);
+		return this.service.createOrder(orderDTO);
 	}
 	
-	public Long fallback(OrderDTO orderDTO, Throwable hystrixCommand) {
-		return null;
-	}
 	@RequestMapping(value="/servicedesk", method = RequestMethod.DELETE)
 	public void delete(@RequestBody Long id) {
 		this.service.delete(id);
 	}
+	
+	@RequestMapping(value="/servicedesk", method = RequestMethod.GET)
+	public Iterable<OrderDTO> findAll() {
+		return this.service.findAllOrders();
+	}
+	
 	
 }
