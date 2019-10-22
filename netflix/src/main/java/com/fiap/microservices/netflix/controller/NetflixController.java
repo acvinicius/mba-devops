@@ -41,26 +41,42 @@ public class NetflixController implements Serializable {
 	
 	@RequestMapping(value="/movies/watched", method = RequestMethod.GET)
 	public List<Movie> getMyWatchedMovies () {
-		return this.service.getMyLikedMovies();
+		return this.service.getMyWatchedMovies();
+	}
+	
+	@RequestMapping(value="/movies/watched", method = RequestMethod.PATCH)
+	public void setMyWatchedMovies (Long id) {
+		this.service.setMyWatchedMovies(id);
+	}
+
+	@RequestMapping(value="/movies/future", method = RequestMethod.PATCH)
+	public void setMyFutureWatchedMovies (Long id) {
+		this.service.setMyFutureWatchedMovies(id);
 	}
 
 	@RequestMapping(value="/movies/future", method = RequestMethod.GET)
 	public List<Movie> getMyFutureWatchedMovies () {
-		return this.service.getMyLikedMovies();
+		return this.service.getMyFutureWatchedMovies();
 	}
 	
 	@RequestMapping(value="/movies/liked", method = RequestMethod.PATCH)
-	public void setMovieAsLiked () {
-		this.service.setMovieAsLiked();
+	public void setMovieAsLiked (Long id) {
+		this.service.setMovieAsLiked(id);
 	}
 	
 	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
-	public List<Movie> getMoviesMostViwedByType () {
-		return this.service.getMoviesMostViwedByType();
+	public List<Movie> getMoviesMostViwedByType (String type) {
+		return this.service.getMoviesMostViwedByType(type);
 	}
 	
 	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
-	public List<Movie> getMovieById () {
-		return this.service.getMoviesMostViwedByType();
+	public Movie getMovieById (Long id) {
+		return this.service.getMovieById(id);
 	}
+	
+	@RequestMapping(value="/movies/report_problem_status", method = RequestMethod.PATCH)
+	public void reportProblemStatus (Long id, Boolean status) {
+		this.service.reportProblemStatus(id, status);
+	}
+	
 }

@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.fiap.microservices.netflix.model.Movie;
 
 @Repository
-public interface NetflixRepository extends CrudRepository<Movie, String> {
+public interface MoviesRepository extends CrudRepository<Movie, String> {
 
-
-	public List<Movie> getMoviesByType(String type);
-
-	<S> S save(Movie movie);
+	List<Movie> findByName(String name);
 	
+	Movie findById(Long id);
+	
+	List<Movie> findByType(String type);
 	
 }
