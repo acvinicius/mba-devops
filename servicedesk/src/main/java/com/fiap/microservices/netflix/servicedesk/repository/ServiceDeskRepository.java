@@ -18,4 +18,6 @@ public interface ServiceDeskRepository extends CrudRepository<OrderDTO, Long> {
 	
 	Iterable<OrderDTO> findAll();
 	
+	Iterable<OrderDTO> findAllByUserId(Long userId);
+	
 }
