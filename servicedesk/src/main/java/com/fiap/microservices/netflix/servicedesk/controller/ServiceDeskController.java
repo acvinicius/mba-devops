@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fiap.microservices.netflix.servicedesk.enums.Status;
 import com.fiap.microservices.netflix.servicedesk.model.OrderDTO;
 import com.fiap.microservices.netflix.servicedesk.service.ServiceDeskService;
 
@@ -29,7 +31,13 @@ public class ServiceDeskController implements Serializable {
 	private ServiceDeskService service;
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.POST)
-	public Long createOrder(@RequestBody OrderDTO orderDTO) {
+	public Long createOrder(@RequestParam String message, @RequestParam Long userId,
+			@RequestParam Long movieId, @RequestParam String status) {
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setMessage(message);
+		orderDTO.setStatus(Status.valueOf(status));
+		orderDTO.setUserId(userId);
+		orderDTO.setMovieId(movieId);
 		return this.service.createOrder(orderDTO);
 	}
 	

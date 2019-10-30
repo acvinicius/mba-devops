@@ -13,3 +13,17 @@ logging:
     com.netflix: WARN
     org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
+    
+server:
+  port: 8090
+spring:
+  cloud:
+    stream:
+      bindings:
+        output:
+            destination:  ordUpdateTopic
+            content-type: application/json
+      kafka:
+        binder:
+          zkNodes: localhost
+          brokers: localhost

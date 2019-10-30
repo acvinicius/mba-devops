@@ -13,6 +13,7 @@ import com.fiap.microservices.netflix.servicedesk.events.SimpleSourceBean;
 import com.fiap.microservices.netflix.servicedesk.model.OrderDTO;
 import com.fiap.microservices.netflix.servicedesk.repository.ServiceDeskRepository;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @Service
 public class ServiceDeskService implements Serializable {
@@ -44,7 +45,14 @@ public class ServiceDeskService implements Serializable {
 		this.repository.deleteById(id);
 	}
 
-	@HystrixCommand(fallbackMethod = "fallbackOrders")
+	@HystrixCommand(fallbackMethod = "fallbackOrders", threadPoolKey = "ordersThreadPool", threadPoolProperties = {
+			@HystrixProperty(name = "coreSize", value = "30"),
+			@HystrixProperty(name = "maxQueueSize", value = "10") }, commandProperties = {
+					@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+					@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "75"),
+					@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "7000"),
+					@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "15000"),
+					@HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5") })
 	public Iterable<OrderDTO> findAllOrders() {
 		return this.repository.findAll();
 	}
