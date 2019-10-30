@@ -1,4 +1,4 @@
-package com.fiap.microservices.netflix.model;
+package com.fiap.microservices.register.model;
 
 import java.io.Serializable;
 import java.util.List;

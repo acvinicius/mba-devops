@@ -1,4 +1,4 @@
-package com.fiap.microservices.netflix.model;
+package com.fiap.microservices.register.model;
 
 import java.io.Serializable;
 
@@ -15,20 +15,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "myFutureMovies")
-public class MyFutureMovies implements Serializable{
+@Table(name = "myMovies")
+public class MyMovies implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5072500446137394457L;
+
 	@Id
 	@GeneratedValue( strategy=GenerationType.AUTO )
-	@Column(name = "futuremovies_id", nullable = false, unique = true)
+	@Column(name = "mymovies_id", nullable = false, unique = true)
 	private Long id;
-	@Column(name = "movie_id", nullable = false, unique = true)
+	@Column(name = "movies_id", nullable = false, unique = true)
 	private Long movieId;
+	@Column(name = "liked", nullable = true)
+	private boolean liked;
 	@Column(name = "user_id", nullable = false, unique = true)
-	private User userId;
+	private Long userId;
 	
 }
