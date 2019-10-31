@@ -31,8 +31,8 @@ public class ServiceDeskController implements Serializable {
 	private ServiceDeskService service;
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.POST)
-	public Long createOrder(@RequestParam String message, @RequestParam Long userId,
-			@RequestParam Long movieId, @RequestParam String status) {
+	public Long createOrder(@RequestParam ("message") String message, @RequestParam ("user_id") Long userId,
+			@RequestParam ("movie_id") Long movieId, @RequestParam ("status") String status) {
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setMessage(message);
 		orderDTO.setStatus(Status.valueOf(status));
@@ -47,7 +47,7 @@ public class ServiceDeskController implements Serializable {
 	}
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.DELETE)
-	public void delete(@RequestBody Long id) {
+	public void delete(@RequestParam  ("id") Long id) {
 		this.service.delete(id);
 	}
 	
@@ -57,7 +57,7 @@ public class ServiceDeskController implements Serializable {
 	}
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.GET)
-	public Iterable<OrderDTO> findAllByUser(Long userId) {
+	public Iterable<OrderDTO> findAllByUser(@RequestParam ("user_id") Long userId) {
 		return this.service.findAllOrdersByUser(userId);
 	}
 	

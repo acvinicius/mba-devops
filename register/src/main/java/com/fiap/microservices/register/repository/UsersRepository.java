@@ -12,7 +12,7 @@ public interface UsersRepository extends CrudRepository<User, String> {
 
 	<S extends User> S save(User user);
 	
-	List<User> findByName(String username);
+	List<User> findByUsername(String username);
 	
 	User findById(Long id);
 	
