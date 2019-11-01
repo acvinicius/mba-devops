@@ -2,6 +2,7 @@ package com.fiap.microservices.register.service;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fiap.microservices.register.model.User;
@@ -15,6 +16,7 @@ public class RegisterService implements Serializable{
 	 */
 	private static final long serialVersionUID = 8808680048770720188L;
 
+	@Autowired
 	private UsersRepository repository;
 	
 	public Long save(User user) {
