@@ -24,58 +24,28 @@ public class NetflixController implements Serializable {
 	@Autowired
 	private MoviesDetailsService service;
 	
-	@RequestMapping(value="/movies/type", method = RequestMethod.GET)
+	@RequestMapping(value="/movie/type", method = RequestMethod.GET)
 	public List<Movie> getMoviesByType (@PathVariable("type") String type) {
 		return this.service.getMoviesByType(type);
 	}
 	
-	@RequestMapping(value="/movies", method = RequestMethod.PUT)
+	@RequestMapping(value="/movie", method = RequestMethod.PUT)
 	public Object save (@PathVariable("movie") Movie movie) {
 		return this.service.save(movie);
 	}
 	
-	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
-	public List<Movie> getMyLikedMovies () {
-		return this.service.getMyLikedMovies();
-	}
-	
-	@RequestMapping(value="/movies/watched", method = RequestMethod.GET)
-	public List<Movie> getMyWatchedMovies () {
-		return this.service.getMyWatchedMovies();
-	}
-	
-	@RequestMapping(value="/movies/watched", method = RequestMethod.PATCH)
-	public void setMyWatchedMovies (Long id) {
-		this.service.setMyWatchedMovies(id);
-	}
-
-	@RequestMapping(value="/movies/future", method = RequestMethod.PATCH)
-	public void setMyFutureWatchedMovies (Long id) {
-		this.service.setMyFutureWatchedMovies(id);
-	}
-
-	@RequestMapping(value="/movies/future", method = RequestMethod.GET)
-	public List<Movie> getMyFutureWatchedMovies () {
-		return this.service.getMyFutureWatchedMovies();
-	}
-	
-	@RequestMapping(value="/movies/liked", method = RequestMethod.PATCH)
-	public void setMovieAsLiked (Long id) {
-		this.service.setMovieAsLiked(id);
-	}
-	
-	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
-	public List<Movie> getMoviesMostViwedByType (String type) {
+	@RequestMapping(value="/movie", method = RequestMethod.GET)
+	public List<Movie> getMoviesMostViwedByType (@PathVariable("type") String type) {
 		return this.service.getMoviesMostViwedByType(type);
 	}
 	
-	@RequestMapping(value="/movies/liked", method = RequestMethod.GET)
-	public Movie getMovieById (Long id) {
+	@RequestMapping(value="/movie", method = RequestMethod.GET)
+	public Movie getMovieById (@PathVariable("id") Long id) {
 		return this.service.getMovieById(id);
 	}
 	
-	@RequestMapping(value="/movies/report_problem_status", method = RequestMethod.PATCH)
-	public void reportProblemStatus (Long id, Boolean status) {
+	@RequestMapping(value="/movie/report_problem_status", method = RequestMethod.PATCH)
+	public void reportProblemStatus (@PathVariable("movie_id") Long id, @PathVariable("has_problem") Boolean status) {
 		this.service.reportProblemStatus(id, status);
 	}
 	

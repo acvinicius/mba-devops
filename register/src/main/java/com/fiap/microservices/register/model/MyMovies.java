@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fiap.microservices.register.enums.MovieStatus;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,5 +35,7 @@ public class MyMovies implements Serializable {
 	private boolean liked;
 	@Column(name = "user_id", nullable = false, unique = true)
 	private Long userId;
+	@Column(name = "movie_status", nullable = false)
+	private MovieStatus movieStatus;
 	
 }

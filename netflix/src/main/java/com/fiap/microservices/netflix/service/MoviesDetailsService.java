@@ -1,6 +1,7 @@
 package com.fiap.microservices.netflix.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,23 @@ public class MoviesDetailsService implements Serializable {
 	
 	@Autowired
 	private MoviesRepository repository;
-
+	
 	public List<Movie> getMoviesByType(String type) {
 		return this.repository.findByType(type);
-	}
-
-	public List<Movie> getMyLikedMovies() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void setMovieAsLiked(Long id) {
 		Movie movie = this.repository.findById(id);
 		movie.setCountLiked(movie.getCountLiked() + 1L);
 		this.repository.save(movie);
+		//post em register service
+		
+//		this.restTemplate.exchange(url, method, requestEntity, responseType)
 	}
 
 	public List<Movie> getMoviesMostViwedByType(String type) {
+		List<Movie> movies = new ArrayList<Movie>();
+		movies = this.repository.findByType(type);
 		//return this.repository.getMoviesMostViwedByType(type);
 		return null;
 	}
@@ -44,28 +45,14 @@ public class MoviesDetailsService implements Serializable {
 		return this.repository.save(movie);
 	}
 
-	public List<Movie> getMyWatchedMovies() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Movie getMovieById(Long id) {
 		return this.repository.findById(id);
-	}
-
-	public List<Movie> getMyFutureWatchedMovies() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void setMyWatchedMovies(Long id) {
 		Movie movie = this.repository.findById(id);
 		movie.setCountWatched(movie.getCountWatched() + 1L);
 		this.repository.save(movie);
-	}
-
-	public void setMyFutureWatchedMovies(Long id) {
-		
 	}
 
 	public void reportProblemStatus(Long id, Boolean status) {

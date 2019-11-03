@@ -23,5 +23,5 @@ spring:
           content-type: application/json
       kafka:
         binder:
-          zkNodes: localhost
-          brokers: localhost
+          zkNodes: 13.67.219.107:2181
+          brokers: 13.67.219.107:2181
