@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fiap.microservices.netflix.model.Movie;
@@ -25,6 +26,11 @@ public class NetflixController implements Serializable {
 	@Autowired
 	private MoviesDetailsService service;
 	
+	@RequestMapping(value="/movie/all", method = RequestMethod.GET)
+	public Iterable<Movie> getAllMovies () {
+		return this.service.getAllMovies();
+	}
+
 	@RequestMapping(value="/movie", method = RequestMethod.GET)
 	public Movie getMovieById (@RequestParam("id") Long id) {
 		return this.service.getMovieById(id);
@@ -43,22 +49,30 @@ public class NetflixController implements Serializable {
 	}
 
 	@RequestMapping(value="/movie/type", method = RequestMethod.GET)
-	public List<Movie> getMoviesByType (@PathVariable("type") String type) {
+	public List<Movie> getMoviesByType (@RequestParam("type") String type) {
 		return this.service.getMoviesByType(type);
 	}
 
-	@RequestMapping(value="/movie/type", method = RequestMethod.PUT)
-	public void setMovieAsLiked (@PathVariable("movie_id") Long movieId) {
+	@RequestMapping(value="/movie/liked", method = RequestMethod.PUT)
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
+	public void setMovieAsLiked (@RequestParam("movie_id") Long movieId) {
 		this.service.setMovieAsLiked(movieId);
+	}
+
+	@RequestMapping(value="/movie/watched", method = RequestMethod.PUT)
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
+	public void setMovieAsWatched (@RequestParam("movie_id") Long movieId) {
+		this.service.setMyWatchedMovies(movieId);
 	}
 	
 	@RequestMapping(value="/movie/type/most_viewed", method = RequestMethod.GET)
-	public List<Movie> getMoviesMostViwedByType (@PathVariable("type") String type) {
+	public List<Movie> getMoviesMostViwedByType (@RequestParam("type") String type) {
 		return this.service.getMoviesMostViwedByType(type);
 	}
 	
 	@RequestMapping(value="/movie/report_problem_status", method = RequestMethod.PUT)
-	public void reportProblemStatus (@PathVariable("movie_id") Long id, @PathVariable("has_problem") Boolean status) {
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
+	public void reportProblemStatus (@RequestParam("movie_id") Long id, @RequestParam("has_problem") Boolean status) {
 		this.service.reportProblemStatus(id, status);
 	}
 	

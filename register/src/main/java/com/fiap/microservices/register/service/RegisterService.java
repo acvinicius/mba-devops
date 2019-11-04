@@ -1,17 +1,18 @@
 package com.fiap.microservices.register.service;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.fiap.microservices.register.config.ConfigProperties;
-import com.fiap.microservices.register.config.GeneralConfig;
 import com.fiap.microservices.register.model.MyMovies;
 import com.fiap.microservices.register.model.User;
 import com.fiap.microservices.register.repository.MyMoviesRepository;
@@ -32,10 +33,11 @@ public class RegisterService implements Serializable{
 	private MyMoviesRepository moviesRepository;
 	
 	@Autowired
-	private ConfigProperties properties;
+	@LoadBalanced
+	private RestTemplate loadBalanced;
 	
-	@Autowired
-	private GeneralConfig config;
+	private static final String URL_NETFLIX_MOVIE_LIKED="http://netflixservice/v1/movie/liked?movie_id={movie_id}&user_id{user_id}";
+	private static final String URL_NETFLIX_MOVIE_WATCHED="http://netflixservice/v1/movie/watched?movie_id={movie_id}&user_id{user_id}";
 	
 	public Long save(User user) {
 		user = this.repository.save(user);
@@ -75,6 +77,7 @@ public class RegisterService implements Serializable{
 			movie.setFuture(true);
 		}
 		this.moviesRepository.save(movie);
+		sendToNetflix(movieId, userId, URL_NETFLIX_MOVIE_WATCHED);
 	}
 
 	public List<MyMovies> getMyFutureWatchedMovies(Long userId) {
@@ -102,16 +105,17 @@ public class RegisterService implements Serializable{
 			movie.setLiked(true);
 		}
 		this.moviesRepository.save(movie);
+		sendToNetflix(movieId, userId, URL_NETFLIX_MOVIE_LIKED);
+	}
 	
-//		StringBuilder params = new StringBuilder();
-//		params.append("movie_id=").append(movieId)
-//		.append("&user_id").append(userId);
-//		String url = properties.getUrlLikedMovie().concat(params.toString());
-//		RestTemplate restTemplate = config.restTemplate();
-//		HttpEntity<MyMovies> request = new HttpEntity<>(new MyMovies());
-//		ResponseEntity<String> response = restTemplate
-//		  .exchange(url, HttpMethod.PUT, request, String.class);
-//		 System.out.println(response.getBody().toString());
+	private void sendToNetflix (Long movieId, Long userId, String url) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("movie_id", movieId.toString());
+		params.put("user_id", userId.toString());
+		HttpEntity<String> request = new HttpEntity<>(new String());
+		ResponseEntity<String> response = this.loadBalanced
+		  .exchange(url, HttpMethod.PUT, request, String.class, params);
+		System.out.println(response.getBody().toString());
 	}
 
 }
