@@ -2,6 +2,8 @@ package com.fiap.microservices.netflix.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +31,23 @@ public class MoviesDetailsService implements Serializable {
 		Movie movie = this.repository.findById(id);
 		movie.setCountLiked(movie.getCountLiked() + 1L);
 		this.repository.save(movie);
-		//post em register service
-		
-//		this.restTemplate.exchange(url, method, requestEntity, responseType)
 	}
 
 	public List<Movie> getMoviesMostViwedByType(String type) {
 		List<Movie> movies = new ArrayList<Movie>();
 		movies = this.repository.findByType(type);
-		//return this.repository.getMoviesMostViwedByType(type);
-		return null;
+		Collections.sort(movies, new Comparator<Movie>() {
+		    @Override
+		    public int compare(Movie a1, Movie a2) {
+		        return (int) (a1.getCountWatched() - a2.getCountWatched());
+		    }
+		});
+		List<Movie> moviesList = new ArrayList<Movie>();
+		for (int i = 0; i < movies.size(); i++) {
+			moviesList.add(movies.get(i));
+			if (i < 10) continue;
+		}
+		return moviesList;
 	}
 
 	public Object save(Movie movie) {

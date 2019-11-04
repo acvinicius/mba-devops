@@ -16,4 +16,6 @@ public interface MoviesRepository extends CrudRepository<Movie, String> {
 	
 	List<Movie> findByType(String type);
 	
+	<S extends Movie> S save(S entity);
+	
 }
