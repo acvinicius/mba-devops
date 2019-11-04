@@ -21,7 +21,8 @@ spring:
         inboundOrgChanges:
           destination: ordUpdateTopic
           content-type: application/json
+          group: userGroup
       kafka:
         binder:
-          zkNodes: 13.67.219.107:2181
-          brokers: 13.67.219.107:2181
+          zkNodes: 13.67.219.107
+          brokers: 13.67.219.107

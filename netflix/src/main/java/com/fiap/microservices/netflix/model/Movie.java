@@ -39,7 +39,5 @@ public class Movie implements Serializable {
 	private Long countWatched;
 	@Column(name = "countLiked", nullable = false)
 	private Long countLiked;
-	@Column(name = "countDisliked", nullable = false)
-	private Long countDisliked;
 	
 }

@@ -33,9 +33,9 @@ public class User implements Serializable{
 	private String username;
 	@Column(name = "password", nullable = false)
 	private String password;
-	@OneToMany( targetEntity=MyMovies.class )
-	private List<MyMovies> myWatchedMovies;
-	@OneToMany( targetEntity=MyMovies.class )
-	private List<MyMovies> myFutureMovies;
+//	@OneToMany( targetEntity=MyMovies.class )
+//	private List<MyMovies> myWatchedMovies;
+//	@OneToMany( targetEntity=MyMovies.class )
+//	private List<MyMovies> myFutureMovies;
 	
 }

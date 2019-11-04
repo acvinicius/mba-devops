@@ -18,4 +18,6 @@ public interface MoviesRepository extends CrudRepository<Movie, String> {
 	
 	<S extends Movie> S save(S entity);
 	
+	List<Movie> findByTypeOrderByCountWatchedDesc(String type);
+
 }

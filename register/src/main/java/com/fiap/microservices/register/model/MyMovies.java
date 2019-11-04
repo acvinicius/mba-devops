@@ -31,11 +31,15 @@ public class MyMovies implements Serializable {
 	private Long id;
 	@Column(name = "movies_id", nullable = false, unique = true)
 	private Long movieId;
-	@Column(name = "liked", nullable = true)
-	private boolean liked;
 	@Column(name = "user_id", nullable = false, unique = true)
 	private Long userId;
-	@Column(name = "movie_status", nullable = false)
-	private MovieStatus movieStatus;
+	@Column(name = "liked", nullable = true)
+	private boolean liked;
+	@Column(name = "watched", nullable = true)
+	private boolean watched;
+	@Column(name = "future", nullable = true)
+	private boolean future;
+//	@Column(name = "movie_status", nullable = false)
+//	private MovieStatus movieStatus;
 	
 }

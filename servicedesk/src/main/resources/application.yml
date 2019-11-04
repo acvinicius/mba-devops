@@ -21,9 +21,8 @@ spring:
     stream:
       bindings:
         output:
-            destination:  ordUpdateTopic
+            destination:  teste
             content-type: application/json
       kafka:
         binder:
-          zkNodes: 13.67.219.107:2181
-          brokers: 13.67.219.107:2181
+          zkNodes: 13.67.219.107

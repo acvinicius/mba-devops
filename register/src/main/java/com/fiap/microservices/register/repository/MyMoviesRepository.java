@@ -16,4 +16,12 @@ public interface MyMoviesRepository extends CrudRepository<MyMovies, String> {
 	
 	<S extends MyMovies> S save(MyMovies movies);
 	
+	List<MyMovies> findByUserIdAndLiked(Long userId, Boolean liked);
+	
+	List<MyMovies> findByUserIdAndWatched(Long userId, Boolean watched);
+
+	List<MyMovies> findByUserIdAndFuture(Long userId, Boolean future);
+	
+	MyMovies findByUserIdAndMovieId(Long userId, Long movieId);
+	
 }

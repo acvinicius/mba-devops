@@ -26,7 +26,7 @@ public class NetflixController implements Serializable {
 	private MoviesDetailsService service;
 	
 	@RequestMapping(value="/movie", method = RequestMethod.GET)
-	public Movie getMovieById (@PathVariable("id") Long id) {
+	public Movie getMovieById (@RequestParam("id") Long id) {
 		return this.service.getMovieById(id);
 	}
 	
@@ -36,7 +36,6 @@ public class NetflixController implements Serializable {
 		movie.setName(name);
 		movie.setType(type);
 		movie.setDetails(details);
-		movie.setCountDisliked(0L);
 		movie.setCountLiked(0L);
 		movie.setCountWatched(0L);
 		movie.setHasProblem(false);
@@ -48,7 +47,7 @@ public class NetflixController implements Serializable {
 		return this.service.getMoviesByType(type);
 	}
 
-	@RequestMapping(value="/movie/type", method = RequestMethod.PATCH)
+	@RequestMapping(value="/movie/type", method = RequestMethod.PUT)
 	public void setMovieAsLiked (@PathVariable("movie_id") Long movieId) {
 		this.service.setMovieAsLiked(movieId);
 	}
@@ -58,7 +57,7 @@ public class NetflixController implements Serializable {
 		return this.service.getMoviesMostViwedByType(type);
 	}
 	
-	@RequestMapping(value="/movie/report_problem_status", method = RequestMethod.PATCH)
+	@RequestMapping(value="/movie/report_problem_status", method = RequestMethod.PUT)
 	public void reportProblemStatus (@PathVariable("movie_id") Long id, @PathVariable("has_problem") Boolean status) {
 		this.service.reportProblemStatus(id, status);
 	}

@@ -3,12 +3,14 @@ package com.fiap.microservices.netflix.servicedesk.service;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fiap.microservices.netflix.servicedesk.enums.Status;
 import com.fiap.microservices.netflix.servicedesk.events.SimpleSourceBean;
 import com.fiap.microservices.netflix.servicedesk.model.OrderDTO;
 import com.fiap.microservices.netflix.servicedesk.repository.ServiceDeskRepository;
@@ -36,9 +38,16 @@ public class ServiceDeskService implements Serializable {
 		return orderDTO.getId();
 	}
 	
-	public void updateOrder(OrderDTO orderDTO) {
-		repository.save(orderDTO);
-		simpleSourceBean.publishOrgChange(orderDTO.getStatus(), orderDTO.getId(), orderDTO.getUserId());
+	public void updateOrder(String message, Long orderId, String status) {
+		Optional<OrderDTO> orderDTO = this.repository.findById(orderId);
+		OrderDTO order;
+		if (orderDTO.isPresent()) {
+			order = orderDTO.get();
+			order.setMessage(order.getMessage().concat(" ; ").concat(message));
+			order.setStatus(Status.valueOf(status));
+			this.repository.save(order);
+			simpleSourceBean.publishOrgChange(order.getStatus(), order.getId(), order.getUserId());
+		}
 	} 
 	
 	public void delete(Long id) {

@@ -35,19 +35,19 @@ public class MoviesDetailsService implements Serializable {
 
 	public List<Movie> getMoviesMostViwedByType(String type) {
 		List<Movie> movies = new ArrayList<Movie>();
-		movies = this.repository.findByType(type);
-		Collections.sort(movies, new Comparator<Movie>() {
-		    @Override
-		    public int compare(Movie a1, Movie a2) {
-		        return (int) (a1.getCountWatched() - a2.getCountWatched());
-		    }
-		});
-		List<Movie> moviesList = new ArrayList<Movie>();
-		for (int i = 0; i < movies.size(); i++) {
-			moviesList.add(movies.get(i));
-			if (i < 10) continue;
-		}
-		return moviesList;
+		movies = this.repository.findByTypeOrderByCountWatchedDesc(type);
+//		Collections.sort(movies, new Comparator<Movie>() {
+//		    @Override
+//		    public int compare(Movie a1, Movie a2) {
+//		        return (int) (a1.getCountWatched() - a2.getCountWatched());
+//		    }
+//		});
+//		List<Movie> moviesList = new ArrayList<Movie>();
+//		for (int i = 0; i < movies.size(); i++) {
+//			moviesList.add(movies.get(i));
+//			if (i < 10) continue;
+//		}
+		return movies;
 	}
 
 	public Object save(Movie movie) {

@@ -1,7 +1,6 @@
 package com.fiap.microservices.register.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,6 @@ public class UserController implements Serializable {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setMyFutureMovies(new ArrayList<MyMovies>());
-		user.setMyWatchedMovies(new ArrayList<MyMovies>());
 		return this.service.save(user);
 	}
 	
@@ -46,29 +43,29 @@ public class UserController implements Serializable {
 		return this.service.getMyLikedMovies(userId);
 	}
 	
+	@RequestMapping(value="/register/movies/liked", method = RequestMethod.PUT)
+	public void setMovieAsLiked (@RequestParam("user_id") Long userId, @RequestParam("movie_id") Long movieId) {
+		this.service.setMovieAsLiked(userId, movieId);
+	}
+	
 	@RequestMapping(value="/register/movies/watched", method = RequestMethod.GET)
 	public List<MyMovies> getMyWatchedMovies (@RequestParam("user_id") Long userId) {
 		return this.service.getMyWatchedMovies(userId);
 	}
 	
-	@RequestMapping(value="/register/movies/watched", method = RequestMethod.PATCH)
+	@RequestMapping(value="/register/movies/watched", method = RequestMethod.PUT)
 	public void markAsWatched (@RequestParam("user_id") Long userId, @RequestParam("movie_id") Long movieId) {
 		this.service.markAsWatched(userId, movieId);
-	}
-
-	@RequestMapping(value="/register/movies/future", method = RequestMethod.PATCH)
-	public void markMyFutureWatchedMovies (@RequestParam("user_id") Long userId, @RequestParam("movie_id") Long movieId) {
-		this.service.setMyFutureWatchedMovies(userId, movieId);
 	}
 
 	@RequestMapping(value="/register/movies/future", method = RequestMethod.GET)
 	public List<MyMovies> getMyFutureWatchedMovies (@RequestParam("user_id") Long userId) {
 		return this.service.getMyFutureWatchedMovies(userId);
 	}
-	
-	@RequestMapping(value="/register/movies/liked", method = RequestMethod.PATCH)
-	public void setMovieAsLiked (@RequestParam("user_id") Long userId, @RequestParam("movie_id") Long movieId) {
-		this.service.setMovieAsLiked(userId, movieId);
+
+	@RequestMapping(value="/register/movies/future", method = RequestMethod.PUT)
+	public void markMyFutureWatchedMovies (@RequestParam("user_id") Long userId, @RequestParam("movie_id") Long movieId) {
+		this.service.setMyFutureWatchedMovies(userId, movieId);
 	}
 	
 }

@@ -32,18 +32,19 @@ public class ServiceDeskController implements Serializable {
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.POST)
 	public Long createOrder(@RequestParam ("message") String message, @RequestParam ("user_id") Long userId,
-			@RequestParam ("movie_id") Long movieId, @RequestParam ("status") String status) {
+			@RequestParam ("movie_id") Long movieId) {
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setMessage(message);
-		orderDTO.setStatus(Status.valueOf(status));
+		orderDTO.setStatus(Status.ABERTO);
 		orderDTO.setUserId(userId);
 		orderDTO.setMovieId(movieId);
 		return this.service.createOrder(orderDTO);
 	}
 	
 	@RequestMapping(value="/servicedesk/update", method = RequestMethod.POST)
-	public void updateOrder(@RequestBody OrderDTO orderDTO) {
-		this.service.updateOrder(orderDTO);
+	public void updateOrder(@RequestParam ("message") String message, @RequestParam ("order_id") Long orderId,
+			@RequestParam ("status") String status) {
+		this.service.updateOrder(message, orderId, status);
 	}
 	
 	@RequestMapping(value="/servicedesk", method = RequestMethod.DELETE)

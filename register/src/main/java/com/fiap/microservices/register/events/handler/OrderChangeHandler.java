@@ -20,7 +20,7 @@ public class OrderChangeHandler implements Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderChangeHandler.class);
 	
-	@StreamListener("ordUpdateTopic")
+	@StreamListener("teste")
 	public void loggerSink(OrderChangeDTO ordUpdated) {
 		logger.debug("Recebida atualização de Status do chamado de id: " + ordUpdated.getId());
 		switch (ordUpdated.getStatus()) {
