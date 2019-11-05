@@ -76,4 +76,8 @@ public class NetflixController implements Serializable {
 		this.service.reportProblemStatus(id, status);
 	}
 	
+	@RequestMapping(value="/movie/details", method = RequestMethod.GET)
+	public List<Movie> getMoviesByDetails (@RequestParam("details") String details) {
+		return this.service.getMoviesByDetails(details);
+	}
 }

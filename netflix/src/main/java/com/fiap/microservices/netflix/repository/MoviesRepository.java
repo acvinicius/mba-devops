@@ -20,4 +20,6 @@ public interface MoviesRepository extends CrudRepository<Movie, String> {
 	
 	List<Movie> findByTypeOrderByCountWatchedDesc(String type);
 
+	List<Movie> findByDetailsContaining(String details);
+	
 }

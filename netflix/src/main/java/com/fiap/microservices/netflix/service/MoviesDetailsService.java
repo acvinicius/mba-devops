@@ -66,4 +66,8 @@ public class MoviesDetailsService implements Serializable {
 		return this.repository.findAll();
 	}
 
+	public List<Movie> getMoviesByDetails(String details) {
+		return this.repository.findByDetailsContaining(details);
+	}
+
 }

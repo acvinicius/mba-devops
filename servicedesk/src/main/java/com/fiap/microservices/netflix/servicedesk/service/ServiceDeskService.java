@@ -48,7 +48,7 @@ public class ServiceDeskService implements Serializable {
 	
 	public Long createOrder(OrderDTO orderDTO) {
 		orderDTO = this.repository.save(orderDTO);
-		sendToNetflix(orderDTO.getMovieId(), Boolean.TRUE, URL_NETFLIX_MOVIE_PROBLEM);
+//		sendToNetflix(orderDTO.getMovieId(), Boolean.TRUE, URL_NETFLIX_MOVIE_PROBLEM);
 		return orderDTO.getId();
 	}
 	
