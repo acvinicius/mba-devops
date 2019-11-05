@@ -36,8 +36,8 @@ public class RegisterService implements Serializable{
 	@LoadBalanced
 	private RestTemplate loadBalanced;
 	
-	private static final String URL_NETFLIX_MOVIE_LIKED="http://netflixservice/v1/movie/liked?movie_id={movie_id}&user_id{user_id}";
-	private static final String URL_NETFLIX_MOVIE_WATCHED="http://netflixservice/v1/movie/watched?movie_id={movie_id}&user_id{user_id}";
+	private static final String URL_NETFLIX_MOVIE_LIKED="http://netflixservice/v1/movie/liked?movie_id={movie_id}";
+	private static final String URL_NETFLIX_MOVIE_WATCHED="http://netflixservice/v1/movie/watched?movie_id={movie_id}";
 	
 	public Long save(User user) {
 		user = this.repository.save(user);
@@ -111,11 +111,9 @@ public class RegisterService implements Serializable{
 	private void sendToNetflix (Long movieId, Long userId, String url) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("movie_id", movieId.toString());
-		params.put("user_id", userId.toString());
 		HttpEntity<String> request = new HttpEntity<>(new String());
 		ResponseEntity<String> response = this.loadBalanced
 		  .exchange(url, HttpMethod.PUT, request, String.class, params);
-		System.out.println(response.getBody().toString());
 	}
 
 }
