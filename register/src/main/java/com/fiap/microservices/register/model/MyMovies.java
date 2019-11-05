@@ -27,9 +27,9 @@ public class MyMovies implements Serializable {
 	@GeneratedValue( strategy=GenerationType.AUTO )
 	@Column(name = "mymovies_id", nullable = false, unique = true)
 	private Long id;
-	@Column(name = "movies_id", nullable = false, unique = true)
+	@Column(name = "movies_id", nullable = false, unique = false)
 	private Long movieId;
-	@Column(name = "user_id", nullable = false, unique = true)
+	@Column(name = "user_id", nullable = false, unique = false)
 	private Long userId;
 	@Column(name = "liked", nullable = true)
 	private boolean liked;
